@@ -1,0 +1,25 @@
+{% assign later_tag = "" %}
+
+
+
+{% if customer.tags contains later_tag or later_tag == blank %}
+
+
+
+<p id="CML_select_payments" class="cart-attribute__field CML_select_payments" style="margin-bottom: 30px;">
+
+  <label style="display:inline-block">Select Payment option</label>
+
+  <select id="CML_payment" name="attributes[CML_payment]" class="CML_payments_options">
+
+    <option value="pay_now"{% if cart.attributes["CML_payment"] == "pay_now" %} selected{% endif %}>Pay Now</option>
+
+    <option value="pay_later"{% if cart.attributes["CML_payment"] == "pay_later" %} selected{% endif %}>Pay Later</option>
+
+  </select>
+
+</p>
+
+
+
+{% endif %}

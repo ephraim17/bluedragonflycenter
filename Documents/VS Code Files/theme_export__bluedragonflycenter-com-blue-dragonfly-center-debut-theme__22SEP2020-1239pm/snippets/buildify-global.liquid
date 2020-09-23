@@ -1,0 +1,14 @@
+{%- comment -%}
+    Enable page view in buildify editor if store use https://help.shopify.com/en/themes/customization/access/create-members-only-store
+{%- endcomment -%}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+{%- for i in (1..1) -%}
+    {%- unless pageUrl contains "?" -%}{%- break -%}{%- endunless -%}
+    {%- unless pageUrl contains "cache=false" -%}{%- break -%}{%- endunless -%}
+    {%- unless pageUrl contains "buildify=true" -%}{%- break -%}{%- endunless -%}
+    {%- unless customer -%}
+        {%- assign customer = true -%}
+    {%- endunless -%}
+{%- endfor -%}
+

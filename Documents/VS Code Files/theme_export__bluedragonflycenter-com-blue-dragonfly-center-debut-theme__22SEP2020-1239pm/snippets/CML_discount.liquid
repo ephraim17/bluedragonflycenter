@@ -1,0 +1,10 @@
+<!-- discount script -->
+{% if customer %}
+{% for tag in customer.tags %}
+{% for meta in shop.metafields.customer_tags %}
+{% if meta.last contains tag %}
+{% assign customer_tag = tag %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}

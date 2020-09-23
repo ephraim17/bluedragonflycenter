@@ -1,0 +1,18 @@
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+      <div class="section-header text-center">
+        <h1>{{ page.title }}</h1>
+      </div>
+
+      <div class="rte">
+        
+        <!-- Bold: Memberships (page) -->
+			{% include 'bold_mem_helper' with 'page' %}
+		<!-- end Bold code -->
+        
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>

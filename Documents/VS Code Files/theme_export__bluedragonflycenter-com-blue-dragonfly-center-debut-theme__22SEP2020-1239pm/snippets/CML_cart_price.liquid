@@ -1,0 +1,27 @@
+{% include 'CML_discount' %}
+
+{% capture metafield %}{{customer_tag}}~{{item.variant_id}}{% endcapture %}
+
+{% assign meta_value = item.product.metafields.customer_tags[metafield] | split: ',' %}
+
+
+<!-- Line Item Price -->
+{% if meta_value == blank %}
+
+<!-- Original Price -->
+{% assign buddy_price = item.price %}
+{% assign buddy_item_line_price = item.line_price %}
+
+{% else %}
+
+<!-- Discounted Price -->
+{% assign discounted_amount = meta_value[1] | times : 100 %}
+{% assign buddy_price = discounted_amount %}
+
+{% assign buddy_item_quantity = item.quantity %}
+{% assign buddy_item_line_price = buddy_price | times:buddy_item_quantity %}
+
+{% endif %}
+
+<!-- Total cart Price -->
+{% assign buddy_cart_total = buddy_cart_total | plus: buddy_item_line_price %}

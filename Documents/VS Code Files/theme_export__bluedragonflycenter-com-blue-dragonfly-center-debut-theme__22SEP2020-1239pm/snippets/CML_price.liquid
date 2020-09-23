@@ -1,0 +1,41 @@
+{% include 'CML_discount' %}
+
+{% capture metafield %}{{customer_tag}}~{{product.selected_or_first_available_variant.id}}{% endcapture %}
+{% assign meta_value = product.metafields.customer_tags[metafield] | split: ',' %}
+
+{% assign discounted_amount = '' %}
+
+<!-- Product Price -->
+{% if meta_value == blank %}
+
+<!-- Original Price -->
+{% assign buddy_price = product.selected_or_first_available_variant.price %}
+
+{% else %}
+
+<!-- Discounted Price -->
+{% assign discounted_amount = meta_value[1] | times : 100 %}
+{% assign buddy_price = discounted_amount %}
+
+{% endif %}
+
+<!-- Variant Data -->
+
+<script>
+  var product_json = [];
+  {% for variant in product.variants %}
+
+  {% capture variant_metafield %}{{customer_tag}}~{{variant.id}}{% endcapture %}
+    {% assign variant_meta_value = product.metafields.customer_tags[variant_metafield] | split: ',' %}
+
+    {% if variant_meta_value[1] != blank %}
+    {% assign variant_discounted_amount = variant_meta_value[1] | times : 100 %}
+    {% assign variant_buddy_price = variant_discounted_amount %}
+    product_json[{{ variant.id }}] = "{{variant_buddy_price | money }}";
+    {% endif %}
+
+
+    {% endfor %}
+
+    console.log(product_json);
+</script>
